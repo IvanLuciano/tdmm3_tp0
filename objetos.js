@@ -1,12 +1,16 @@
 class Formas {
   constructor() {
-    this.rad = 25;
+    this.rad = 30;
     this.agarrando = false;
     this.mover = true;
 
-    this.posX = width / 2 + round(random(-150, 150));
-    this.posY = height / 2 + round(random(-260, 260));;
+    this.vibrarEn = round(random(900, 1200));
+    this.vibrando = false;
+    this.vibrar = 0;
 
+
+    this.posX = width / 2 + round(random(-150, 150));
+    this.posY = height / 2 + round(random(-260, 260));
 
     this.veloX = 3.8;
     this.veloY = 3.8;
@@ -23,6 +27,7 @@ class Formas {
   }
 
   draw() {
+    angleMode(RADIANS);
     push();
     if (this.forma == 0) { // CIRCULOS
       push();
@@ -35,7 +40,9 @@ class Formas {
         stroke(this.r, this.g, this.b);
       }
       strokeWeight(3);
-      ellipse(this.posX, this.posY, this.rad, this.rad);
+      translate(this.posX, this.posY);
+      rotate(this.vibrar);
+      ellipse(0, 0, this.rad, this.rad);
       pop();
     }
 
@@ -50,11 +57,13 @@ class Formas {
         stroke(this.r, this.g, this.b);
         strokeWeight(3);
       }
-      rect(this.posX, this.posY, this.rad, this.rad);
+      translate(this.posX, this.posY);
+      rotate(this.vibrar);
+      rect(0, 0, this.rad, this.rad);
       pop();
     }
 
-    if (this.forma == 2) { // RECTANGULOS
+    if (this.forma == 2) { // TRIANGULOS
       push();
       rectMode(RADIUS);
       if (this.relleno == 0) {
@@ -65,11 +74,11 @@ class Formas {
         stroke(this.r, this.g, this.b);
         strokeWeight(3);
       }
-      triangle(this.posX, this.posY - 20, this.posX - 25, this.posY + 25, this.posX + 25, this.posY + 25);
+      translate(this.posX, this.posY);
+      rotate(this.vibrar);
+      triangle(0, 0 - 25, 0 - 30, 0 + 30, 0 + 30, 0 + 30);
       pop();
     }
-
-
     pop();
   }
 
@@ -80,19 +89,28 @@ class Formas {
     fill(255, 5, 5);
     pop();
 
+    // DRAG
+
     if (this.distan <= this.rad && this.mover == true) {
       if (mouseIsPressed) {
         this.posX = mouseX;
         this.posY = mouseY;
-        this.agarrando = true;
+        this.vibrarEn = round(random(900, 1200));
+        this.vibrando = false;
+        this.vibrar = 0;
       }
     }
 
+    // REBOTES
 
     if (this.posX < (x / 3) - this.rad + 5 || this.posX > (x - (x / 3)) + this.rad - 5) {
       this.posX = this.posX + this.veloX * this.dirX;
       this.posY = this.posY + this.veloY * this.dirY;
+      this.vibrarEn = 999;
+      this.vibrando = false;
+      this.vibrar = 0;
     }
+
     if (this.posX < (x / 3) - this.rad - 35 || this.posX > (x - (x / 3)) + this.rad + 35) {
       this.mover = false;
     }
@@ -108,5 +126,20 @@ class Formas {
     if (this.posY >= y - this.rad - 1 || this.posY <= this.rad + 1) {
       this.dirY *= -1;
     }
+
+    // vibrar
+
+    this.vibrarEn = this.vibrarEn - 1;
+    if (this.vibrarEn <= 0) {
+      this.vibrarEn = 0;
+      this.vibrando = true;
+    }
+
+    if(this.vibrando == true){
+      this.vibrar = random(0,2);
+      this.posX = this.posX + random(-0.5,0.5);
+      this.PosY = this.posY + random(-0.5,0.5);
+    }
+
   }
 }

@@ -1,7 +1,7 @@
 let x;
 let y;
 
-let cant = 25;
+let cant = 15;
 
 let f = [];
 
