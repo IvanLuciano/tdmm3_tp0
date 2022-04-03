@@ -22,6 +22,9 @@ class Formas {
     this.r = round(random(210));
     this.g = round(random(210));
     this.b = round(random(210));
+    this.colores = [color(226, 44, 33), color(233, 139, 37), color(207, 203, 86), color(61, 206, 82), color(33, 190, 235), color(58, 53, 168), color(148, 33, 235), color(223, 67, 104)];
+
+    this.colorForma = this.colores[round(random(0, 7))];
 
     this.forma = round(random(0, 2));
     this.relleno = round(random(0, 1));
@@ -34,11 +37,11 @@ class Formas {
       push();
       ellipseMode(RADIUS);
       if (this.relleno == 0) {
-        fill(this.r, this.g, this.b);
+        fill(this.colorForma);
         noStroke();
       } else {
         noFill();
-        stroke(this.r, this.g, this.b);
+        stroke(this.colorForma);
       }
       strokeWeight(3);
       translate(this.posX, this.posY);
@@ -51,11 +54,11 @@ class Formas {
       push();
       rectMode(RADIUS);
       if (this.relleno == 0) {
-        fill(this.r, this.g, this.b);
+        fill(this.colorForma);
         noStroke();
       } else {
         noFill();
-        stroke(this.r, this.g, this.b);
+        stroke(this.colorForma);
         strokeWeight(3);
       }
       translate(this.posX, this.posY);
@@ -68,11 +71,11 @@ class Formas {
       push();
       rectMode(RADIUS);
       if (this.relleno == 0) {
-        fill(this.r, this.g, this.b);
+        fill(this.colorForma);
         noStroke();
       } else {
         noFill();
-        stroke(this.r, this.g, this.b);
+        stroke(this.colorForma);
         strokeWeight(3);
       }
       translate(this.posX, this.posY);
