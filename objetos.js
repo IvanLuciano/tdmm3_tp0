@@ -7,6 +7,7 @@ class Formas {
     this.vibrarEn = round(random(900, 1200));
     this.vibrando = false;
     this.vibrar = 0;
+    this.vibracionTime = 2;
 
 
     this.posX = width / 2 + round(random(-150, 150));
@@ -27,7 +28,7 @@ class Formas {
   }
 
   draw() {
-    angleMode(RADIANS);
+    angleMode(DEGREES);
     push();
     if (this.forma == 0) { // CIRCULOS
       push();
@@ -135,10 +136,15 @@ class Formas {
       this.vibrando = true;
     }
 
-    if(this.vibrando == true){
-      this.vibrar = random(0,2);
-      this.posX = this.posX + random(-0.5,0.5);
-      this.PosY = this.posY + random(-0.5,0.5);
+
+    this.vibracionTime++;
+    if (this.vibrando == true) {
+      if (this.vibracionTime >= 7) {
+        this.vibrar = random(-8, 8);
+        this.posX = this.posX + random(-0.5, 0.5);
+        this.PosY = this.posY + random(-0.5, 0.5);
+        this.vibracionTime = 0;
+      }
     }
 
   }
